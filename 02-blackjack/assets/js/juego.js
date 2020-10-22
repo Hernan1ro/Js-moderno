@@ -6,7 +6,13 @@
 let deck = [];
 const tipos = ["C", "D", "H", "S"];
 const letras = ["A", "J", "K", "Q"];
+let puntosJugador = 0,
+  puntosComputadora = 0;
 
+//referencias del html
+const btnPedir = document.querySelector("#btnPedir");
+const divCartasJugador = document.querySelector("#jugador-cartas");
+const smalls = document.querySelectorAll("small");
 // funcion crea un nuevo deck
 const crearDeck = () => {
   for (let i = 2; i <= 10; i++) {
@@ -23,7 +29,7 @@ const crearDeck = () => {
     }
   }
   deck = _.shuffle(deck);
-  console.log(deck);
+  // console.log(deck);
   return deck;
 };
 
@@ -67,4 +73,25 @@ const valorCarta = (carta) => {
 };
 
 valor = valorCarta(pedirCarta());
-console.log({ valor });
+// console.log({ valor });
+
+// Eventos
+
+btnPedir.addEventListener("click", () => {
+  const carta = pedirCarta();
+  puntosJugador += valorCarta(carta);
+  smalls[0].innerText = puntosJugador;
+  // <img class="carta" src="/assets/cartas/10D.png" alt="" />;
+  const imgCarta = document.createElement("img");
+  imgCarta.src = `/assets/cartas/${carta}.png`;
+  imgCarta.classList.add("carta");
+  divCartasJugador.append(imgCarta);
+
+  if (puntosJugador > 21) {
+    btnPedir.disabled = true;
+    console.warn("Has perdido");
+  } else if (puntosJugador === 21) {
+    btnPedir.disabled = true;
+    console.warn("Genial, un 21");
+  }
+});
