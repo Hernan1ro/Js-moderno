@@ -1,4 +1,13 @@
 class Persona {
+  static _conteo = 0;
+  static get conteo() {
+    return Persona._conteo + " instancias";
+  }
+
+  static mensaje() {
+    // console.log(this.nombre);
+    console.log("Hola a todos soy un método estático");
+  }
   nombre = "";
   codigo = "";
   frase = "";
@@ -12,6 +21,7 @@ class Persona {
     this.nombre = nombre;
     this.codigo = codigo;
     this.frase = frase;
+    Persona._conteo++;
   }
 
   set setComidaFavorita(comida) {
@@ -48,4 +58,11 @@ spiderman.miFrase();
 
 spiderman.setComidaFavorita = "El pie de cereza de tia May";
 
-console.log(spiderman.getComidaFavorita);
+// console.log(spiderman.getComidaFavorita);
+
+// console.log(spiderman);
+
+// Persona._conteo = 2;
+
+console.log("Conteo estático: ", Persona._conteo);
+Persona.mensaje();
